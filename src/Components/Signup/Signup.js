@@ -62,10 +62,9 @@ const Signup = () => {
       if (response.ok) {
         const token = data.token;
         if (token) {
-          localStorage.setItem("token", token);
+        alert("signup successfully")
           navigate("/signin");
-          console.log("Token received:", token);
-          console.log("User data received:", data.user);
+        
         } else {
           console.error("No token received from the API");
         }

@@ -203,9 +203,9 @@ const SignIn = () => {
               }}
             />
           </label>
-          <Link to="/change-password" style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px" }}>
             Forgot Apple ID or Password?
-          </Link>
+          </div>
           <button
             onClick={handleSecondContinueClick}
             style={{

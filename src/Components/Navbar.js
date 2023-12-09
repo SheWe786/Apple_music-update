@@ -252,6 +252,9 @@ function Navbar() {
                   }`}
                 >
                   <h3 className="svelte-1gncjsm">Up Next</h3>
+                  <img 
+                  style={{width:"85%", paddingTop:"110px"}}
+                  src="https://goaexcise.gov.in/images/ComingSoon.gif" alt="commingsoon" />
                 </div>
               )}
             </div>
