@@ -1,0 +1,33 @@
+.gdpr-panes__icon {
+  width: 30px;
+  fill: #fa233b;
+  content: url("https://music.apple.com/static-commerce/img/privacy.cdd37a86.svg");
+  height: 30px;
+
+}
+
+.gdpr-panes__text--account {
+  margin-top: 0.75rem;
+  margin-left: 85px;
+  margin-right: 85px;
+  margin-bottom: 20px;
+}
+.gdpr-panes__text {
+  color: #86868b;
+}
+.typography-caption {
+  font-size: 12px;
+  line-height: 1.3333733333;
+  font-weight: 400;
+  letter-spacing: -.01em;
+  font-family: SF Pro Text,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+@media only screen and (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+  .gdpr-panes__text--account {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+

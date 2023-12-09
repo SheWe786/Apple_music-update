@@ -1,0 +1,20 @@
+.liked-song{
+    margin-top: 80px;
+    margin-left: 50px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+.trclass{
+   /* padding-bottom: 50px; */
+    /* background-color: yellow; */
+    align-items: center;
+}
+.tdclass{
+    /* background-color: rgb(145, 135, 135); */
+    display: flex;
+    margin-bottom: 5px;
+
+}
+.favoritebutton{
+    background-color: green;
+}
