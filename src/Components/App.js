@@ -11,7 +11,7 @@ import AlbumGridPage from "./RandomAlbumGrid.js";
 import FavoriteSongsList from "./FavoriteSongsList.js";
 import RandomAlbumGrid from "./RandomAlbumGrid.js"; // Import the RandomAlbumGrid component
 import Radio from "./Radio/Radio.js";
-import ChangePassword from "./ChangePassword/ChangePassword.js";
+
 import Signup from "./Signup/Signup.js";
 
 import TryItFree from "./tryItFree/TryItFree.js";
@@ -36,12 +36,11 @@ export default function App() {
             {/* Add a new route for AlbumFetcher with a section number */}
             <Route path="/favorites" element={<FavoriteSongsList />} />
             <Route path="Radio" element={<Radio />} />
-            <Route path="/change-password" element={<ChangePassword />} />
+
             <Route path="/signUp" element={<Signup />} />
-         
+
             <Route path="/tryItFree" element={<TryItFree />} />
             <Route path="/Sidebar" element={<Sidebar />} />
-
           </Routes>
         </div>
       </Router>

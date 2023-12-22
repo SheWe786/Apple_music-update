@@ -12,7 +12,7 @@ import {
   CardMedia,
   IconButton,
 } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom"; // Its a pre-built function. 
 import {
   PlayArrow,
   Pause,

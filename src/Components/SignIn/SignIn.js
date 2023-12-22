@@ -8,7 +8,7 @@ const SignIn = () => {
   const [selectedCountry, setSelectedCountry] = useState("Country/Region");
   const [showEmailForm, setShowEmailForm] = useState(true);
   const navigate = useNavigate();
-  const countries = ["Algeria", "Angola" /* Add all the countries here */];
+  const countries = ["Algeria", "Angola"];
   const [placeholderText, setPlaceholderText] = useState(
     newEmail ? newEmail : "Apple ID"
   );
@@ -37,18 +37,9 @@ const SignIn = () => {
     navigate("/");
   };
 
-  const handleEmailChange = (event) => {
-    setNewEmail(event.target.value);
-  };
-
   const handleCountryChange = (event) => {
     setSelectedCountry(event.target.value);
   };
-
-  const handleContinueClick = () => {
-    // Just switch to the second part of the form
-    setShowEmailForm(false);
-  }
 
   const handleSecondContinueClick = async () => {
     // Replace 'user_email' and 'user_password' with actual user input
@@ -89,7 +80,7 @@ const SignIn = () => {
         } else {
           // Handle the case where no token is received, e.g., show an error message
           console.error("No token received from the API");
-          alert('incorrect username or password');
+          alert("incorrect username or password");
         }
       })
       .catch((error) => {
@@ -176,7 +167,7 @@ const SignIn = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email or Apple ID"
+              placeholder="Email"
               style={{
                 width: "500px",
                 height: "55px",
