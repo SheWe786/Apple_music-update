@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./FavoriteSongsList.css";
 
-import { addSongToFavorites, removeSongFromFavorites } from "./authenticate";
+import { addSongToFavorites, removeSongFromFavorites } from "../authenticate";
 
 const FavoriteSongsList = () => {
   const [favorites, setFavorites] = useState([]);

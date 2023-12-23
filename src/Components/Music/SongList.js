@@ -22,7 +22,7 @@ import {
 import { useMusicPlayer } from "./MusicPlayerContext";
 
 import "./SongList.css";
-import { addSongToFavorites, removeSongFromFavorites } from "./authenticate";
+import { addSongToFavorites, removeSongFromFavorites } from "../authenticate";
 
 function SongList() {
   const { state } = useLocation();

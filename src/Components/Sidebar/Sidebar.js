@@ -1,46 +1,50 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import "./App.css";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import "../App.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import SongsList from "./SongsList";
-import { NavLink, useNavigate,  useLocation } from "react-router-dom";
+import SongsList from "../Music/SongsList";
 
 function Sidebar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showSongList, setShowSongList] = useState(false);
-  const [activeLink, setActiveLink] = useState("");
+
   const searchResultsRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === '/') {
+    if (location.pathname === "/") {
       navigate("/browse"); // Navigate to the "/browse" route by default if no route is defined
     }
   }, [navigate, location.pathname]);
 
   const handleSearch = () => {
     console.log("Search Term:", searchTerm);
-    fetch(`https://academics.newtonschool.co/api/v1/music/song?search={"title":"${searchTerm}"}`, {
-      headers: {
-        'projectId': 'f104bi07c490'
+    fetch(
+      `https://academics.newtonschool.co/api/v1/music/song?search={"title":"${searchTerm}"}`,
+      {
+        headers: {
+          projectId: "f104bi07c490",
+        },
       }
-    })
+    )
       .then((response) => response.json())
       .then((res) => {
-        console.log('API Data:', res); 
+        console.log("API Data:", res);
         setSearchResults(res.data);
         setShowSongList(true);
-        
       })
-      .catch((error) => console.error('Error fetching song data:', error));
-      setShowSongList(false);
+      .catch((error) => console.error("Error fetching song data:", error));
+    setShowSongList(false);
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (searchResultsRef.current && !searchResultsRef.current.contains(event.target)) {
+      if (
+        searchResultsRef.current &&
+        !searchResultsRef.current.contains(event.target)
+      ) {
         // Click occurred outside the search results container
         setShowSongList(false);
       }
@@ -86,17 +90,17 @@ function Sidebar() {
                 autoComplete="on"
                 autoFocus="on"
                 placeholder="Search"
-                // ref={inputRef}
+                
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === "Enter") {
                     e.preventDefault();
                     console.log("Enter key pressed"); // Log when Enter key is pressed
                     handleSearch();
                   }
                 }}
-                style={{ backgroundColor: 'white' }} 
+                style={{ backgroundColor: "white" }}
               />
             </form>
             {showSongList && (

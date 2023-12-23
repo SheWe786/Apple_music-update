@@ -1,26 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./ListenNow.css";
 const ListenNow = () => {
-  const buttonStyle = {
-    backgroundColor: "Red",
-    color: "white",
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "5px",
-    marginTop: "40px",
-  };
-
-  const linkStyle = {
-    marginTop: "20px", // Add margin-top here to the "Learn More" link
-  };
-
-  const containerStyle = {
-    marginTop: "100px", // Add margin-top here
-    textAlign: "center",
-  };
-
   return (
-    <div style={containerStyle}>
+    <div className="containerStyle">
       <h1 style={{ textAlign: "center" }}>Discover New Music Every Day</h1>
       <p style={{ textAlign: "center" }}>
         Get playlists and albums inspired by the artists and
@@ -30,9 +13,9 @@ const ListenNow = () => {
         $10.99/month.
       </p>
       <Link to="/tryItFree">
-        <button style={buttonStyle}>Try It Free</button>
+        <button className="buttonStyle">Try It Free</button>
       </Link>
-      <p style={{ ...linkStyle, textAlign: "center" }}>
+      <p className="linkStyle">
         <a href="#">Learn More</a>
       </p>
     </div>

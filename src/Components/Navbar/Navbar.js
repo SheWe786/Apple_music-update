@@ -1,23 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useMusicPlayer } from "./MusicPlayerContext";
+import { useMusicPlayer } from "../Music/MusicPlayerContext";
 import "./Navbar.css";
-
-import {
-  PlayArrow,
-  Pause,
-  SkipPrevious,
-  SkipNext,
-  Repeat,
-  Shuffle,
-} from "@mui/icons-material";
-import {
-  IconButton,
-  Typography,
-  Card,
-  CardContent,
-  CardMedia,
-} from "@mui/material";
 
 function Navbar() {
   const { setCurrentSong } = useMusicPlayer();
@@ -252,9 +236,11 @@ function Navbar() {
                   }`}
                 >
                   <h3 className="svelte-1gncjsm">Up Next</h3>
-                  <img 
-                  style={{width:"85%", paddingTop:"110px"}}
-                  src="https://goaexcise.gov.in/images/ComingSoon.gif" alt="commingsoon" />
+                  <img
+                    style={{ width: "85%", paddingTop: "110px" }}
+                    src="https://goaexcise.gov.in/images/ComingSoon.gif"
+                    alt="commingsoon"
+                  />
                 </div>
               )}
             </div>

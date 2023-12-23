@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Sidebar from "./Sidebar.js";
-import Navbar from "./Navbar.js";
-import BrowsePage from "./BrowsePage.js";
-import MusicPlayerPage from "./MusicPlayerPage.js";
-import SongList from "./SongList.js";
+import Sidebar from "./Sidebar/Sidebar.js";
+import Navbar from "./Navbar/Navbar.js";
+import BrowsePage from "./BrowsePage/BrowsePage.js";
+import MusicPlayerPage from "./Music/MusicPlayerPage.js";
+import SongList from "./Music/SongList.js";
 import SignIn from "./SignIn/SignIn.js";
-import ListenNow from "./ListenNow.js";
-import AlbumGridPage from "./RandomAlbumGrid.js";
-import FavoriteSongsList from "./FavoriteSongsList.js";
-import RandomAlbumGrid from "./RandomAlbumGrid.js"; // Import the RandomAlbumGrid component
+import ListenNow from "./ListenNow/ListenNow.js";
+import AlbumGridPage from "./RandomAlbumGrid/RandomAlbumGrid.js";
+import FavoriteSongsList from "./FavoriteSongsList/FavoriteSongsList.js";
+import RandomAlbumGrid from "./RandomAlbumGrid/RandomAlbumGrid.js";
 import Radio from "./Radio/Radio.js";
-
 import Signup from "./Signup/Signup.js";
-
 import TryItFree from "./tryItFree/TryItFree.js";
 
 export default function App() {

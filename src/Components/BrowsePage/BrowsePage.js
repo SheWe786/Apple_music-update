@@ -5,7 +5,7 @@ import PauseIcon from "@mui/icons-material/Pause"; // Import PauseIcon
 import { Card, CardContent, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import RandomAlbumGrid from "./RandomAlbumGrid";
+import RandomAlbumGrid from "../RandomAlbumGrid/RandomAlbumGrid";
 
 function BrowsePage() {
   const [albums, setAlbums] = useState([]);

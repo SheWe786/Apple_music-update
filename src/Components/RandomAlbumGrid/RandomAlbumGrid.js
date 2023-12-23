@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./RandomAlbumGrid.css"; // Import your CSS file
+import "./RandomAlbumGrid.css";
+import SongList from "../Music/SongList";
 import { Card, CardContent, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
-import SongList from "./SongList"; // Import the SongList component
+import { useNavigate } from "react-router-dom";
 
-function RandomAlbumGrid() {
-  const [randomAlbums, setRandomAlbums] = useState([]);
+function RandomAlbumGrid() { // initializes state used to manage and update the state of a component.
+  const [randomAlbums, setRandomAlbums] = useState([]); 
   const [selectedAlbum, setSelectedAlbum] = useState(null);
-  const navigate = useNavigate(); // Create a navigate function
+  const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect(() => { // useEffect to fetch random albums on component mount(mount means that the code inside the useEffect function will be executed after the component has been initially rendered in the DOM.)
     fetch("https://academics.newtonschool.co/api/v1/music/album?limit=300", {
       headers: {
         projectId: "f104bi07c490",
@@ -17,18 +17,18 @@ function RandomAlbumGrid() {
     })
       .then((response) => response.json())
       .then((res) => {
-        const allAlbums = res.data;
-        // Split allAlbums into sections of 25 albums each
-        const albumSections = [];
+        const allAlbums = res.data; //Once the response is received, the JSON data is extracted, representing all the albums.
+
+        const albumSections = []; //The albums are organized into sections, each containing 25 albums.
         for (let i = 0; i < allAlbums.length; i += 25) {
           albumSections.push(allAlbums.slice(i, i + 25));
         }
-        const randomSection = Math.floor(Math.random() * albumSections.length);
+        const randomSection = Math.floor(Math.random() * albumSections.length); //A random section is chosen to ensure a different set of albums is displayed each time the component renders.
         const albumsToShow = albumSections[randomSection];
-        setRandomAlbums(albumsToShow);
+        setRandomAlbums(albumsToShow); //The selected albums from the random section are stored in the randomAlbums state using the setRandomAlbums function. This triggers a re-render, updating the UI to show the chosen albums.
       })
       .catch((error) => console.error("Error fetching random albums:", error));
-  }, []);
+  }, []); // Empty dependency array means, it runs once, after the initial render
 
   const handleAlbumClick = (album) => {
     setSelectedAlbum(album);
