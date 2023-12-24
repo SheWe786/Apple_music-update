@@ -105,7 +105,7 @@ function Sidebar() {
             </form>
             {showSongList && (
               <div ref={searchResultsRef} className="song-list-overlay">
-                <SongsList searchResults={searchResults} />
+                <SongsList searchResults={searchResults} />  
               </div>
             )}
             <div className="sidebardetails">

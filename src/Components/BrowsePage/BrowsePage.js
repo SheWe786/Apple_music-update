@@ -12,7 +12,7 @@ function BrowsePage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [expandedSections, setExpandedSections] = useState({});
-  const [isPlaying, setIsPlaying] = useState(false); // Add isPlaying state
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     fetch("https://academics.newtonschool.co/api/v1/music/album?limit=300", {
@@ -32,18 +32,18 @@ function BrowsePage() {
       });
   }, []);
 
-  useEffect(() => {
-    const albumTitles = document.querySelectorAll(".album-title");
-    albumTitles.forEach((title) => {
-      if (title.scrollWidth > title.clientWidth) {
-        title.classList.add("scrolling");
-      }
-    });
-  }, [albums]);
+  // useEffect(() => {
+  //   const albumTitles = document.querySelectorAll(".album-title");
+  //   albumTitles.forEach((title) => {
+  //     if (title.scrollWidth > title.clientWidth) {
+  //       title.classList.add("scrolling");
+  //     }
+  //   });
+  // }, [albums]);
 
   const handleAlbumClick = (album) => {
     console.log("Album clicked:", album);
-    navigate("/album", { state: { album } });
+    navigate("/album", { state: { album } }); //its navigate to SongList,It also passes the clicked album as state to the destination component (likely the 'SongList' component).
   };
 
   const handleSectionClick = (index) => {
@@ -61,7 +61,7 @@ function BrowsePage() {
       index === 11
     ) {
       // If "Playlist on the Pulse" is clicked, navigate to the "/random-albums" route
-      navigate("/random-albums");
+      navigate("/random-albums"); //its navigate to RandomAlbumGrid
     } else {
       setExpandedSections((prevState) => ({
         ...prevState,
@@ -170,7 +170,6 @@ function BrowsePage() {
                         onClick={handlePlayPauseClick}
                       >
                         {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}{" "}
-                        {/* Play or Pause icon */}
                       </div>
                     </div>
                   </>
@@ -182,7 +181,6 @@ function BrowsePage() {
                         alt={album.title}
                         className="album-image hover-effect"
                       />{" "}
-                      {/* Add hover-effect class here */}
                       <div
                         className={`play-pause-button hover-visible ${
                           isPlaying ? "visible" : ""
@@ -190,7 +188,6 @@ function BrowsePage() {
                         onClick={handlePlayPauseClick}
                       >
                         {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}{" "}
-                        {/* Play or Pause icon */}
                       </div>
                     </div>
                     <CardContent>

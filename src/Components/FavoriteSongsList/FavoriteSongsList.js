@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./FavoriteSongsList.css";
-
-import { addSongToFavorites, removeSongFromFavorites } from "../authenticate";
+import { useMusicPlayer } from "../Music/MusicPlayerContext";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
 
 const FavoriteSongsList = () => {
   const [favorites, setFavorites] = useState([]);
-  const [likedSongs, setLikedSongs] = useState([]);
-  const [isFavourite, setIsFavourite] = useState(false);
+
+  const { playSong, togglePlayPause, currentSong, isPlaying } =
+    useMusicPlayer();
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -38,33 +40,38 @@ const FavoriteSongsList = () => {
     fetchFavorites();
   }, []);
 
-  const handleLikeToggle = async (songId) => {
-    try {
-      if (likedSongs.includes(songId)) {
-        await removeSongFromFavorites("/music/favorites/like", songId);
-        setIsFavourite(false);
-      } else {
-        await addSongToFavorites("/music/favorites/like", songId);
-        setIsFavourite(true);
-      }
-
-      setLikedSongs((prevLikedSongs) =>
-        prevLikedSongs.includes(songId)
-          ? prevLikedSongs.filter((id) => id !== songId)
-          : [...prevLikedSongs, songId]
-      );
-    } catch (error) {
-      console.error("Error toggling like:", error);
+  const handlePlaySong = (song) => {
+    if (currentSong && song._id === currentSong._id && isPlaying) {
+      togglePlayPause();
+    } else {
+      playSong(song, favorites.songs);
     }
   };
 
-  console.log("favi", favorites);
+  const filterUniqueSongs = (songs) => {
+    const uniqueSongs = [];
+    const uniqueSongIds = new Set();
+
+    if (songs && Array.isArray(songs)) {
+      songs.forEach((song) => {
+        if (!uniqueSongIds.has(song._id)) {
+          uniqueSongIds.add(song._id);
+          uniqueSongs.push(song);
+        }
+      });
+    }
+
+    return uniqueSongs;
+  };
+
+  const uniqueSongs = filterUniqueSongs(favorites.songs);
+
   return (
     <div style={{ marginTop: "4rem" }}>
       <h2>Liked Songs</h2>
       <table>
         <tbody>
-          {favorites?.songs?.map((song, index) => (
+          {uniqueSongs.map((song, index) => (
             <tr className="trclass" key={song.id}>
               <td className="tdclass">
                 <img
@@ -72,8 +79,15 @@ const FavoriteSongsList = () => {
                   alt={song.title}
                   style={{ width: "40px", height: "40px", marginRight: "10px" }}
                 />
-                <div className="favoritebutton" onClick={() => handleLikeToggle(song.id)}>
-                  {/* {isFavourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}  */}
+                <div
+                  className="playbutton"
+                  onClick={() => handlePlaySong(song)}
+                >
+                  {currentSong && song._id === currentSong._id && isPlaying ? (
+                    <PauseIcon />
+                  ) : (
+                    <PlayArrowIcon />
+                  )}
                 </div>
                 {song.title}
               </td>

@@ -6,20 +6,27 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("Country/Region");
+  const [emailError, setEmailError] = useState(false);
+  const [fieldError, setFieldError] = useState(false);
   const navigate = useNavigate();
-  const countries = ["UK", "USA", "India" /* Add all the countries here */];
+  const countries = ["UK", "USA", "India"];
 
   const handleClose = () => {
-    navigate("/"); //for close button(X)
+    navigate("/");
   };
 
   const handleNameChange = (event) => {
-    // console.log(event.target.value, setName);
     setName(event.target.value);
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+  };
+
+  const handleEmailBlur = (event) => {
+    const enteredEmail = event.target.value;
+    const emailFormat = /^\S+@\S+\.\S+$/;
+    setEmailError(!emailFormat.test(enteredEmail));
   };
 
   const handlePasswordChange = (event) => {
@@ -29,15 +36,22 @@ const Signup = () => {
   const handleCountryChange = (event) => {
     setSelectedCountry(event.target.value);
   };
+
   const handleSignupClick = async () => {
+    if (!name || !email || !password || selectedCountry === "Country/Region") {
+      setFieldError(true);
+      return;
+    } else {
+      setFieldError(false);
+    }
     const apiUrl = "https://academics.newtonschool.co/api/v1/user/signup";
-  
+
     const emailFormat = /^\S+@\S+\.\S+$/;
     if (!emailFormat.test(email)) {
       alert("Please enter a valid email address.");
-      return; 
+      return;
     }
-    
+
     const requestBody = {
       name: name,
       email: email,
@@ -62,9 +76,8 @@ const Signup = () => {
       if (response.ok) {
         const token = data.token;
         if (token) {
-        alert("signup successfully")
+          alert("signup successfully");
           navigate("/signin");
-        
         } else {
           console.error("No token received from the API");
         }
@@ -82,6 +95,7 @@ const Signup = () => {
       console.error("Error fetching data:", error);
     }
   };
+
   return (
     <div
       style={{
@@ -125,6 +139,17 @@ const Signup = () => {
         X
       </button>
       <h1 style={{ marginBottom: "20px" }}>Create an Account</h1>
+      {fieldError && (
+        <p style={{ color: "red", marginTop: "10px", paddingBottom: "13px" }}>
+          All fields are required.
+        </p>
+      )}
+      {emailError && (
+        <p style={{ color: "red", marginTop: "5px", paddingBottom: "13px" }}>
+          Please enter a valid email address.
+        </p>
+      )}
+
       <label style={{ marginBottom: "20px" }}>
         <input
           type="text"
@@ -147,6 +172,7 @@ const Signup = () => {
           name="email"
           value={email}
           onChange={handleEmailChange}
+          onBlur={handleEmailBlur}
           placeholder="Email"
           style={{
             width: "500px",
@@ -154,6 +180,7 @@ const Signup = () => {
             padding: "10px",
             fontSize: "16px",
             borderRadius: "9px",
+            borderColor: emailError ? "red" : "",
           }}
         />
       </label>

@@ -4,11 +4,10 @@ import { useMusicPlayer } from "../Music/MusicPlayerContext";
 import "./Navbar.css";
 
 function Navbar() {
-  const { setCurrentSong } = useMusicPlayer();
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const audioRef = useRef();
-  const [currentTime, setCurrentTime] = useState(0);
-  const durationLimit = 20;
+  const [currentSongIndex, setCurrentSongIndex] = useState(0); //This state variable will keep track of the index of the currently playing song in the playlist.
+  const [currentTime, setCurrentTime] = useState(0); // This state variable will keep track of the current playback time of the audio.
+  const audioRef = useRef(); // hold a reference to the audio element. This is useful for controlling and interacting with the audio playback.
+  const durationLimit = 20; // the maximum duration a song can play (20 seconds).
   const {
     currentSong,
     isPlaying,
@@ -17,39 +16,35 @@ function Navbar() {
     playPreviousSong,
     togglePlayPause,
     playSong,
-  } = useMusicPlayer();
+  } = useMusicPlayer(); // a custom hook that provides various values and functions related to music playback. The destructuring syntax is used to extract specific values and functions.
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSongBoxDropdownOpen, setIsSongBoxDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token"); //: Retrieves the authentication token from local storage.
 
   const toggleSongBoxDropdown = () => {
     setIsSongBoxDropdownOpen(!isSongBoxDropdownOpen);
   };
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/signin");
   };
-
   const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownOpen(!isDropdownOpen); 
   };
 
   useEffect(() => {
     const audio = audioRef.current;
-
     const updateProgress = () => {
       const current = audio.currentTime;
       setCurrentTime(Math.floor(current));
     };
-
     const setInitialData = () => {
       audio.addEventListener("timeupdate", updateProgress);
     };
 
     if (currentSong) {
-      audio.src = currentSong.audio_url;
+      audio.src = currentSong.audio_url; ///Remind to edit
       if (isPlaying) {
         audio.play();
       } else {
@@ -57,7 +52,6 @@ function Navbar() {
       }
       setInitialData();
     }
-
     return () => {
       if (audio) {
         audio.removeEventListener("timeupdate", updateProgress);

@@ -47,8 +47,8 @@ function DisplaySongs({ album }) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Song</TableCell>
-            <TableCell>Actions</TableCell>
+            {/* <TableCell>Song</TableCell>
+            <TableCell>Actions</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>

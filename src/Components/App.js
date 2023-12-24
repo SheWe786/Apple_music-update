@@ -7,7 +7,6 @@ import MusicPlayerPage from "./Music/MusicPlayerPage.js";
 import SongList from "./Music/SongList.js";
 import SignIn from "./SignIn/SignIn.js";
 import ListenNow from "./ListenNow/ListenNow.js";
-import AlbumGridPage from "./RandomAlbumGrid/RandomAlbumGrid.js";
 import FavoriteSongsList from "./FavoriteSongsList/FavoriteSongsList.js";
 import RandomAlbumGrid from "./RandomAlbumGrid/RandomAlbumGrid.js";
 import Radio from "./Radio/Radio.js";
@@ -34,9 +33,7 @@ export default function App() {
             {/* Add a new route for AlbumFetcher with a section number */}
             <Route path="/favorites" element={<FavoriteSongsList />} />
             <Route path="Radio" element={<Radio />} />
-
             <Route path="/signUp" element={<Signup />} />
-
             <Route path="/tryItFree" element={<TryItFree />} />
             <Route path="/Sidebar" element={<Sidebar />} />
           </Routes>
@@ -45,3 +42,5 @@ export default function App() {
     </div>
   );
 }
+
+

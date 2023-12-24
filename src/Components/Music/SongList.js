@@ -12,7 +12,7 @@ import {
   CardMedia,
   IconButton,
 } from "@mui/material";
-import { useLocation } from "react-router-dom"; // Its a pre-built function. 
+import { useLocation } from "react-router-dom"; // Its a pre-built function.
 import {
   PlayArrow,
   Pause,
@@ -26,8 +26,8 @@ import { addSongToFavorites, removeSongFromFavorites } from "../authenticate";
 
 function SongList() {
   const { state } = useLocation();
-  const album = state && state.album;
-  const { playSong } = useMusicPlayer();
+  const album = state && state.album; 
+  const { playSong } = useMusicPlayer(); // Destructures the playSong and setCurrentSong functions from the useMusicPlayer hook.
   const { setCurrentSong } = useMusicPlayer();
   const [isPlaying, setIsPlaying] = useState(
     Array(album.songs.length).fill(false)
@@ -39,20 +39,15 @@ function SongList() {
     Array(album.songs.length).fill(null)
   );
 
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null); //ASK************
 
   const playSongFromAlbum = (song) => {
-    // Get the index of the current song in the album
     const songIndex = album.songs.findIndex((s) => s === song);
-
-    // Create a new array of songs starting from the current song
-    const songsToPlay = [
-      ...album.songs.slice(songIndex),
-      ...album.songs.slice(0, songIndex),
+    const songsToPlay = [ // Create the new array of songs to the console. 
+      ...album.songs.slice(songIndex), // includes songs from the current song to the end of the array.
+      ...album.songs.slice(0, songIndex), // includes songs from the beginning of the array up to, but not including, the current song.
     ];
-
-    // Log the new array of songs
-    console.log("Songs to play:", songsToPlay);
+    console.log("Songs to play:", songsToPlay); //This log is helpful for debugging and understanding the order of songs for playback.
 
     // Pass the new array of songs to the playSong function
     playSong(song, songsToPlay);
@@ -83,7 +78,7 @@ function SongList() {
   };
   console.log("songlis ", favoriteSongs);
   // Function to toggle favorite status for a song
-  const toggleFavorite = async (songId) => {
+  const toggleFavorite = async (songId) => { 
     try {
       if (favoriteSongs.includes(songId)) {
         await removeSongFromFavorites("/music/favorites/like", songId);

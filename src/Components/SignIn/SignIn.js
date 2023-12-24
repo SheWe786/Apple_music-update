@@ -5,6 +5,7 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const [error, setError] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("Country/Region");
   const [showEmailForm, setShowEmailForm] = useState(true);
   const navigate = useNavigate();
@@ -16,7 +17,6 @@ const SignIn = () => {
   const getToken = () => {
     const accessToken = localStorage.getItem("token");
     const userData = localStorage.getItem("userData");
-
     return {
       token: accessToken,
       userData: userData ? JSON.parse(userData) : null,
@@ -37,62 +37,48 @@ const SignIn = () => {
     navigate("/");
   };
 
-  const handleCountryChange = (event) => {
-    setSelectedCountry(event.target.value);
-  };
+ 
 
   const handleSecondContinueClick = async () => {
-    // Replace 'user_email' and 'user_password' with actual user input
-
     const apiUrl = "https://academics.newtonschool.co/api/v1/user/login";
-    // Create the request body
+
     const requestBody = {
       email: email,
       password: password,
       appType: "music",
     };
 
-    // Make the POST request
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          projectID: "f104bi07c490",
+        },
+        body: JSON.stringify(requestBody),
+      });
 
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        projectID: "f104bi07c490",
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Assuming the API response contains a 'token' field
-
-        console.log("my data", data);
+      if (response.ok) {
+        const data = await response.json();
         const token = data.token;
 
-        // Check if the response contains a token
         if (token) {
-          // Store the token in local storage
           localStorage.setItem("token", token);
-          // Hide the email form and show the rest of the form or perform any other action
           setShowEmailForm(false);
-          alert("Login Succesfully");
+          alert("Login Successfully");
           navigate("/browse");
         } else {
-          // Handle the case where no token is received, e.g., show an error message
-          console.error("No token received from the API");
-          alert("incorrect username or password");
+          setError("No token received from the API");
         }
-      })
-      .catch((error) => {
-        // Handle any network or API request errors
-        console.error("Error fetching data:", error);
-      });
+      } else {
+        setError("Incorrect username or password");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError("Error occurred while logging in");
+    }
   };
-
-  const handleBackClick = () => {
-    // Reset the form and show the email input form
-    setShowEmailForm(true);
-  };
+ 
   return (
     <div
       style={{
@@ -135,7 +121,7 @@ const SignIn = () => {
       >
         X
       </button>
-      {showEmailForm ? (
+     
         <>
           <div className="apple-logo">
             <svg
@@ -161,68 +147,10 @@ const SignIn = () => {
           <h2 style={{ marginBottom: "20px" }}>
             Enter your email to get started.
           </h2>
+          {error && (
+            <p style={{ color: "red", textAlign: "center" }}>{error}</p>
+          )}
           <label style={{ marginBottom: "20px" }}>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              style={{
-                width: "500px",
-                height: "55px",
-                padding: "10px",
-                fontSize: "16px",
-                borderRadius: "9px",
-              }}
-            />
-          </label>
-          <label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              style={{
-                width: "500px",
-                marginBottom: "10px",
-                height: "55px",
-                padding: "10px",
-                fontSize: "16px",
-                borderRadius: "5px",
-              }}
-            />
-          </label>
-          <div style={{ marginBottom: "20px" }}>
-            Forgot Apple ID or Password?
-          </div>
-          <button
-            onClick={handleSecondContinueClick}
-            style={{
-              backgroundColor: "#E75480",
-              width: "300px",
-              height: "45px",
-              borderRadius: "9px",
-              fontSize: "18px",
-            }}
-          >
-            Continue
-          </button>
-        </>
-      ) : (
-        <div
-          style={{
-            maxHeight: "650px",
-            overflow: "auto",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <h2>Create Apple ID</h2>
-          <label>
             <input
               type="email"
               name="email"
@@ -255,120 +183,23 @@ const SignIn = () => {
               }}
             />
           </label>
-          <p style={{ fontSize: "12px", marginBottom: "20px" }}>
-            Your password must have 8 or more characters, upper and lowercase
-            letters, and at least one number.
-          </p>
-          <label>
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              style={{
-                width: "500px",
-                marginBottom: "10px",
-                height: "55px",
-                marginBottom: "15px",
-                padding: "10px",
-                fontSize: "16px",
-                borderRadius: "5px",
-              }}
-            />
-          </label>
-          <label>
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              style={{
-                width: "500px",
-                marginBottom: "10px",
-                height: "55px",
-                marginBottom: "15px",
-                padding: "10px",
-                fontSize: "16px",
-                borderRadius: "5px",
-              }}
-            />
-          </label>
-          <label>
-            <input
-              type="date"
-              name="birthday"
-              placeholder="Birthday"
-              style={{
-                width: "500px",
-                marginBottom: "10px",
-                height: "55px",
-                marginBottom: "15px",
-                padding: "10px",
-                fontSize: "16px",
-                borderRadius: "5px",
-              }}
-            />
-          </label>
-          <label style={{ marginBottom: "20px" }}>
-            <select
-              style={{
-                width: "500px",
-                marginBottom: "10px",
-                height: "55px",
-                marginBottom: "15px",
-                padding: "10px",
-                fontSize: "16px",
-                borderRadius: "5px",
-              }}
-              onChange={handleCountryChange}
-            >
-              <option value="Country/Region" disabled selected>
-                {selectedCountry}
-              </option>
-              {countries.map((country, index) => (
-                <option key={index} value={country}>
-                  {country}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label>
-            Apple Updates:
-            <input type="checkbox" name="appleUpdates" />
-          </label>
-
-          <p style={{ fontSize: "11px" }}>
-            Receive Apple emails and communications including new releases,
-            exclusive content, special offers, and marketing and recommendations
-            for apps, music, movies, TV, books, podcasts, Apple Pay, and more.
-          </p>
-
-          <label>
-            Agree to Terms & Conditions:
-            <input type="checkbox" name="termsAndConditions" />
-          </label>
-
-          <p style={{ fontSize: "11px" }}>
-            By selecting Continue, you agree to the Apple Media Services Terms &
-            Conditions and acknowledge that you will be signed in on this
-            browser.
-          </p>
-
+          <Link to="/change-password" style={{ marginBottom: "20px" }}>
+            Forgot Apple ID or Password?
+          </Link>
           <button
-            onClick={handleBackClick}
+            onClick={handleSecondContinueClick}
             style={{
-              backgroundColor: "gray",
-              width: "150px",
+              backgroundColor: "#E75480",
+              width: "300px",
               height: "45px",
               borderRadius: "9px",
               fontSize: "18px",
-              marginRight: "10px",
             }}
           >
-            Back
+            Continue
           </button>
-          {/* <button onClick={handleSecondContinueClick} style={{ backgroundColor: 'pink', width: '150px', height: "45px", borderRadius: '9px', fontSize: '18px' }}>Continue</button> */}
-        </div>
-      )}
+        </>
+     
     </div>
   );
 };

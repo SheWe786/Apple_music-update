@@ -1,20 +1,36 @@
-.liked-song{
+.liked-song {
     margin-top: 80px;
     margin-left: 50px;
     font-weight: 600;
     text-decoration: underline;
-}
-.trclass{
-   /* padding-bottom: 50px; */
-    /* background-color: yellow; */
+  }
+  
+  .trclass {
+    margin-left: 20px;
     align-items: center;
-}
-.tdclass{
-    /* background-color: rgb(145, 135, 135); */
+  }
+  
+  .tdclass {
+    background-color: rgb(226, 226, 226);
     display: flex;
-    margin-bottom: 5px;
-
-}
-.favoritebutton{
-    background-color: green;
-}
+    position: relative;
+    width: 544px;
+    margin-left: 20px;
+    margin-bottom: 10px; 
+    border: 1px solid rgb(117, 117, 117);
+    border-radius: 5px;
+  }
+  
+  .favoritebutton {
+    background-color: red;
+  }
+  
+  
+  .tdclass img {
+    margin-right: 10px;
+  }
+  
+  .tdclass .playbutton {
+    margin-right: 10px;
+  }
+  
